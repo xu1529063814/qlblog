@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.example</groupId>
+    <artifactId>qlblog</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <modules>
+        <module>qlblog-common</module>
+        <module>qlblog-components</module>
+        <module>qlblog-service</module>
+        <module>qlblog-repository</module>
+        <module>qiblog-domain</module>
+        <module>qlblog-web</module>
+        <module>qlblog-components/qlblog-componets-mq</module>
+        <module>qlblog-components/qlblog-components-oss</module>
+        <module>qlblog-components/qlblog-components-task</module>
+    </modules>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.5.3</version>
+    </parent>
+
+
+
+
+    <!--
+    ====================================================================
+    统一版本属性管理（集中式版本控制中心）
+    ====================================================================
+    -->
+    <properties>
+        <!-- [基础环境配置] -->
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- [Spring技术栈版本] -->
+        <spring-boot.version>2.5.3</spring-boot.version>
+        <spring.version>5.3.9</spring.version>
+        <springdoc.version>1.6.15</springdoc.version>
+
+        <!-- [数据库组件版本] -->
+        <mysql.version>8.0.33</mysql.version>
+        <druid.version>1.2.16</druid.version>
+        <mybatis-plus.version>3.5.3.2</mybatis-plus.version>
+        <pagehelper.version>1.4.6</pagehelper.version>
+        <hibernate-validator.version>6.2.5.Final</hibernate-validator.version>
+
+        <!-- [中间件客户端版本] -->
+        <amqp-client.version>5.14.2</amqp-client.version>
+        <lettuce.version>6.2.4.RELEASE</lettuce.version>
+
+        <!-- [安全框架版本] -->
+        <sa-token.version>1.37.0</sa-token.version>
+        <jjwt.version>0.11.5</jjwt.version>
+
+        <!-- [工具库版本] -->
+        <hutool.version>5.8.20</hutool.version>
+        <lombok.version>1.18.28</lombok.version>
+        <guava.version>31.1-jre</guava.version>
+    </properties>
+
+    <!--
+    ====================================================================
+    依赖版本管理（全局版本锁定中心）
+    ==================================================================== -->
+    <dependencyManagement>
+        <dependencies>
+            <!-- >>>>> Spring Boot官方Starter依赖 <<<<< -->
+            <!-- 核心启动器（基础自动配置） -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <!-- Web开发启动器（含嵌入式容器） -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <!-- 参数校验启动器 -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-validation</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <!-- AOP支持启动器 -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-aop</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <!-- 测试支持启动器（作用域限定为test） -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <version>${spring-boot.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <!-- RabbitMQ集成启动器 -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-amqp</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <!-- Redis集成启动器 -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-redis</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <!-- >>>>> 数据库相关依赖 <<<<< -->
+            <!-- MySQL官方JDBC驱动 -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+            <!-- 阿里Druid连接池 -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+            <!-- MyBatis-Plus启动器 -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <!-- PageHelper分页插件启动器 -->
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>${pagehelper.version}</version>
+            </dependency>
+
+            <!-- >>>>> 中间件客户端依赖 <<<<< -->
+            <!-- RabbitMQ Java客户端 -->
+            <dependency>
+                <groupId>com.rabbitmq</groupId>
+                <artifactId>amqp-client</artifactId>
+                <version>${amqp-client.version}</version>
+            </dependency>
+            <!-- Redis异步客户端 -->
+            <dependency>
+                <groupId>io.lettuce</groupId>
+                <artifactId>lettuce-core</artifactId>
+                <version>${lettuce.version}</version>
+            </dependency>
+
+            <!-- >>>>> 安全框架依赖 <<<<< -->
+            <!-- Sa-Token认证框架启动器 -->
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-spring-boot-starter</artifactId>
+                <version>${sa-token.version}</version>
+            </dependency>
+            <!-- JWT核心API -->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-api</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+
+            <!-- >>>>> 工具库依赖 <<<<< -->
+            <!-- Hutool全能工具包 -->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+            <!-- Lombok代码简化工具 -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+                <optional>true</optional>
+            </dependency>
+            <!-- Google核心工具库 -->
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+
+            <!-- >>>>> 其他工具依赖 <<<<< -->
+            <!-- SpringDoc OpenAPI UI界面 -->
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-ui</artifactId>
+                <version>${springdoc.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
+
+
+
+
+</project>
